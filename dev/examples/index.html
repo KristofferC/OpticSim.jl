@@ -36,7 +36,7 @@ end</code></pre>
    5 │ Stop      35.571        2.0    Air                   6.033
    6 │ 5         35.571        4.0    SCHOTT.N_SK16         7.003
    7 │ 6        -26.777       44.748  Air                   7.506
-   8 │ Image    Inf      missing      missing              15.0</pre><p><img src="../assets/cooke.png" alt="Cooke triplet visualization"/></p><h2 id="Zoom-Lens"><a class="docs-heading-anchor" href="#Zoom-Lens">Zoom Lens</a><a id="Zoom-Lens-1"></a><a class="docs-heading-anchor-permalink" href="#Zoom-Lens" title="Permalink"></a></h2><div class="markdown"><pre><code class="language-julia">function draw_zoomlenses&#40;filenames::MaybeVector&#123;AbstractString&#125; &#61; cycle&#40;&#91;nothing&#93;&#41;&#41;
+   8 │ Image    Inf      missing      missing              15.0</pre><p><img src="../assets/cooke.png" alt="Cooke triplet visualization"/></p><h2 id="Zoom-Lens"><a class="docs-heading-anchor" href="#Zoom-Lens">Zoom Lens</a><a id="Zoom-Lens-1"></a><a class="docs-heading-anchor-permalink" href="#Zoom-Lens" title="Permalink"></a></h2><div class="markdown"><pre><code class="language-julia">function draw_zoomlenses&#40;filenames::MaybeVector&#123;AbstractString&#125; &#61; repeat&#40;&#91;nothing&#93;, 3&#41;&#41;
     stops &#61; &#91;2.89, 3.99, 4.90&#93;
     zooms &#61; &#91;9.48, 4.48, 2.00&#93;
     dists &#61; &#91;4.46970613, 21.21, 43.81&#93;
@@ -62,7 +62,27 @@ end</code></pre>
     end
     return syss
 end</code></pre>
-</div><pre><code class="language-">syss = draw_zoomlenses([&quot;assets/zoom$i.png&quot; for i in 1:3]); @show sys[1]; nothing # hide</code></pre><p><img src="../assets/zoom1.png" alt="Zoom position 1 visualization"/> <img src="../assets/zoom2.png" alt="Zoom position 2 visualization"/> <img src="../assets/zoom3.png" alt="Zoom position 3 visualization"/></p><h2 id="Schmidt-Cassegrain-Telescope"><a class="docs-heading-anchor" href="#Schmidt-Cassegrain-Telescope">Schmidt Cassegrain Telescope</a><a id="Schmidt-Cassegrain-Telescope-1"></a><a class="docs-heading-anchor-permalink" href="#Schmidt-Cassegrain-Telescope" title="Permalink"></a></h2><div class="markdown"><pre><code class="language-julia">function draw_schmidtcassegraintelescope&#40;filename::Maybe&#123;AbstractString&#125; &#61; nothing&#41;
+</div><pre class="documenter-example-output">syss[1] = 17×6 DataFrame
+ Row │ Surface  Radius     Aspherics                          Thickness      Material       SemiDiameter
+     │ Any      Float64    Array…?                            Float64?       Abstract…?     Float64
+─────┼───────────────────────────────────────────────────────────────────────────────────────────────────
+   1 │ Object    Inf       missing                                Inf        Air               Inf
+   2 │ Stop      Inf       missing                                  0.0      Air                 2.89
+   3 │ 1         -16.2022  missing                                  5.18     OHARA.S_LAH66       3.85433
+   4 │ 2         -48.8759  missing                                  0.1      Air                 3.85433
+   5 │ 3          15.6666  missing                                  4.4      NIKON.LLF6          4.36305
+   6 │ 4         -42.9553  [(4, 0.00010386), (6, 1.4209e-7)…        0.16     Air                 4.36305
+   7 │ 5         108.696   missing                                  1.0      OHARA.S_TIH6        4.72506
+   8 │ 6          23.6239  missing                                  4.96     OHARA.S_FSL5        4.72506
+   9 │ 7         -16.0591  [(4, 4.2721e-5), (6, 1.2484e-7),…        9.48     Air                 4.72506
+  10 │ 8        -425.532   [(4, 0.00011339), (6, 4.8165e-7)…        4.04     OHARA.S_FSL5        4.45241
+  11 │ 9         -35.4359  missing                                  1.35     Air                 4.45241
+  12 │ 10        -14.1463  missing                                  1.0      OHARA.S_LAL8        4.50974
+  13 │ 11       -251.256   missing                                  2.8      OHARA.S_FSL5        4.50974
+  14 │ 12        -22.5023  missing                                  3.0      Air                 4.50974
+  15 │ 13        -10.5831  missing                                  1.22     OHARA.S_LAH66       4.76271
+  16 │ 14        -44.4444  missing                                  4.46971  Air                 4.76271
+  17 │ Image     Inf       missing                            missing        missing            15.0</pre><p><img src="../assets/zoom1.png" alt="Zoom position 1 visualization"/> <img src="../assets/zoom2.png" alt="Zoom position 2 visualization"/> <img src="../assets/zoom3.png" alt="Zoom position 3 visualization"/></p><h2 id="Schmidt-Cassegrain-Telescope"><a class="docs-heading-anchor" href="#Schmidt-Cassegrain-Telescope">Schmidt Cassegrain Telescope</a><a id="Schmidt-Cassegrain-Telescope-1"></a><a class="docs-heading-anchor-permalink" href="#Schmidt-Cassegrain-Telescope" title="Permalink"></a></h2><div class="markdown"><pre><code class="language-julia">function draw_schmidtcassegraintelescope&#40;filename::Maybe&#123;AbstractString&#125; &#61; nothing&#41;
     # glass entrance lens on telescope
     topsurf &#61; Plane&#40;
         SVector&#40;0.0, 0.0, 1.0&#41;,
@@ -221,7 +241,7 @@ end</code></pre>
     return nothing
 end</code></pre>
 </div><pre class="documenter-example-output">┌ Warning: Order 1 not valid for this configuration, skipping this ray
-└ @ OpticSim ~/work/OpticSim.jl/OpticSim.jl/src/Optical/Grating.jl:282</pre><p><img src="../assets/hoe_m.png" alt="Multi-HOE example"/></p><h2 id="Deterministic-Raytracing"><a class="docs-heading-anchor" href="#Deterministic-Raytracing">Deterministic Raytracing</a><a id="Deterministic-Raytracing-1"></a><a class="docs-heading-anchor-permalink" href="#Deterministic-Raytracing" title="Permalink"></a></h2><div class="markdown"><pre><code class="language-julia">function draw_stackedbeamsplitters&#40;filenames::MaybeVector&#123;AbstractString&#125; &#61; cycle&#40;&#91;nothing&#93;&#41;&#41;
+└ @ OpticSim ~/work/OpticSim.jl/OpticSim.jl/src/Optical/Grating.jl:282</pre><p><img src="../assets/hoe_m.png" alt="Multi-HOE example"/></p><h2 id="Deterministic-Raytracing"><a class="docs-heading-anchor" href="#Deterministic-Raytracing">Deterministic Raytracing</a><a id="Deterministic-Raytracing-1"></a><a class="docs-heading-anchor-permalink" href="#Deterministic-Raytracing" title="Permalink"></a></h2><div class="markdown"><pre><code class="language-julia">function draw_stackedbeamsplitters&#40;filenames::MaybeVector&#123;AbstractString&#125; &#61; repeat&#40;&#91;nothing&#93;, 3&#41;&#41;
     # ReflectOrTransmit: nondeterministic
     # Transmit: deterministic, all beamsplitters transmissive
     # Reflect: deterministic, all beamsplitters reflective
@@ -254,4 +274,4 @@ end</code></pre>
     end
     return nothing
 end</code></pre>
-</div><p><img src="../assets/deterministic_trace_1.png" alt="Nondeterministic Raytrace"/> <img src="../assets/deterministic_trace_2.png" alt="Transmission only"/> <img src="../assets/deterministic_trace_3.png" alt="Reflection only"/></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><a class="docs-footer-nextpage" href="../basic_types/">Basic Types »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Wednesday 28 April 2021 08:46">Wednesday 28 April 2021</span>. Using Julia version 1.6.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+</div><p><img src="../assets/deterministic_trace_1.png" alt="Nondeterministic Raytrace"/> <img src="../assets/deterministic_trace_2.png" alt="Transmission only"/> <img src="../assets/deterministic_trace_3.png" alt="Reflection only"/></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><a class="docs-footer-nextpage" href="../basic_types/">Basic Types »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Wednesday 28 April 2021 10:45">Wednesday 28 April 2021</span>. Using Julia version 1.6.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
